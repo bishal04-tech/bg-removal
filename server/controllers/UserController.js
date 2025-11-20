@@ -2,7 +2,7 @@ import { Webhook } from "svix"
 import userModel from "../models/userModel.js"
 import transactionModel from "../models/transactionModel.js"
 import razorpay from 'razorpay';
-import stripe from "stripe";
+
 
 // Gateway Initialize
 
