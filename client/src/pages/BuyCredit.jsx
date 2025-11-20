@@ -59,23 +59,7 @@ const BuyCredit = () => {
     }
   }
 
-  const paymentStripe = async (planId) => {
-    try {
-
-      const token = await getToken()
-      const { data } = await axios.post(backendUrl + '/api/user/pay-stripe', { planId }, { headers: { token } })
-      if (data.success) {
-        const { session_url } = data
-        window.location.replace(session_url)
-      } else {
-        toast.error(data.message)
-      }
-    } catch (error) {
-      console.log(error)
-      toast.error(error.message)
-    }
-  }
-
+  
   return (
     <div className='min-h-[80vh] text-center pt-14 mb-10'>
       <button className='border border-gray-400 px-10 py-2 rounded-full mb-6'>Our Plans</button>
