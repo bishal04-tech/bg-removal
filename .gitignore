@@ -1,0 +1,63 @@
+node_modules
+
+# -------------------------
+# Node
+# -------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# -------------------------
+# Environment Variables
+# -------------------------
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+client/.env
+server/.env
+
+.env.*.local
+
+
+# -------------------------
+# Build Output (Vite / React)
+# -------------------------
+dist/
+build/
+client/dist/
+client/build/
+
+# -------------------------
+# Logs
+# -------------------------
+logs/
+*.log
+*.log.*
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# -------------------------
+# OS / Editor Files
+# -------------------------
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# -------------------------
+# Vercel
+# -------------------------
+.vercel/
+
+# -------------------------
+# Temp files
+# -------------------------
+*.tmp
+*.cache
+.cache/
+client/.cache/
