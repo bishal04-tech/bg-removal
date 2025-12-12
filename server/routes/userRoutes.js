@@ -3,7 +3,7 @@
 
 
 import express from 'express';
-import { userCredits, paymentRazorpay, verifyRazorpay, paymentStripe, verifyStripe } from '../controllers/userController.js';
+import { userCredits, paymentRazorpay, verifyRazorpay, paymentStripe, verifyStripe } from '../controllers/UserController.js';
 import userAuth from '../middlewares/auth.js'; // Import the middleware
 
 const userRouter = express.Router();
