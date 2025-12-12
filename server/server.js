@@ -1,60 +1,46 @@
-// import 'dotenv/config';
-// import express from 'express'
-// import cors from 'cors'
-// import userRouter from './routes/userRoutes.js';
-// import connectDB from './configs/mongodb.js';
-// import imageRouter from './routes/imageRoutes.js';
-
-// // App Config
-// const PORT = process.env.PORT || 4000
-// const app = express();
-// await connectDB()
-
-// // Intialize Middlewares
-// app.use(express.json())
-// app.use(cors())
-
-// // API routes
-// app.use('/api/user',userRouter)
-// app.use('/api/image',imageRouter)
-
-// app.get('/', (req,res) => res.send("API Working"))
-
-// app.listen(PORT, () => console.log('Server running on port ' + PORT));
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import userRouter from './routes/userRoutes.js';
 import imageRouter from './routes/imageRoutes.js';
+import authRouter from './routes/authRoutes.js';
 import connectDB from './configs/mongodb.js';
 
 const app = express();
 
-// Connect to MongoDB
+// DB
 (async () => {
   try {
     await connectDB();
     console.log('✅ Database connected');
-  } catch (error) {
-    console.error('❌ MongoDB connection failed:', error.message);
+  } catch (e) {
+    console.error('❌ MongoDB connection failed:', e.message);
     process.exit(1);
   }
 })();
 
-// Middleware
+// middleware
 app.use(express.json());
-app.use(cors()); // simple, open CORS for college project
+app.use(cors());
 
-// Routes
+// DEBUG: log every request so we see what hits the server
+
+// 🔎 hard-wire a test route (bypasses the router file entirely)
+// app.get('/api/auth/health', (_req, res) => res.json({ ok: true, via: 'server.js inline' }));
+
+// mount routers (before 404)
+app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
 app.use('/api/image', imageRouter);
 
-// Default route
-app.get('/', (req, res) => {
-  res.send('🚀 API Working');
+// default
+app.get('/', (_req, res) => res.send('🚀 API Working'));
+
+// JSON 404 fallback LAST (prevents HTML and bad JSON parsing)
+app.use((req, res) => {
+  res.status(404).json({ error: 'Not found', path: req.originalUrl });
 });
 
-// Start server (Render will inject PORT)
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`✅ Server running on port ${PORT}`);

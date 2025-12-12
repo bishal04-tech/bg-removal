@@ -1,9 +1,13 @@
-import multer from "multer";
+import multer from 'multer';
 
-// diskStorage config for multer
-const storage = multer.diskStorage({});
+// This configures multer to keep the original file extension
+// and gives it a unique name so files don't overwrite each other.
+const storage = multer.diskStorage({
+  filename: function (req, file, callback) {
+    callback(null, Date.now() + '-' + file.originalname);
+  }
+});
 
-// creating upload middleware to parse multi/part formdata
 const upload = multer({ storage });
 
 export default upload;

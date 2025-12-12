@@ -1,14 +1,17 @@
-import express from 'express'
-import { userCredits, paymentRazorpay, verifyRazorpay, clerkWebhooks, paymentStripe, verifyStripe } from '../controllers/UserController.js'
-import authUser from '../middlewares/auth.js'
 
-const userRouter = express.Router()
 
-userRouter.post('/webhooks', clerkWebhooks)
-userRouter.get('/credits', authUser, userCredits)
-userRouter.post('/pay-razor', authUser, paymentRazorpay)
-userRouter.post('/verify-razor', verifyRazorpay)
-userRouter.post("/pay-stripe", authUser, paymentStripe)
-userRouter.post("/verify-stripe", authUser, verifyStripe)
 
-export default userRouter
+
+import express from 'express';
+import { userCredits, paymentRazorpay, verifyRazorpay, paymentStripe, verifyStripe } from '../controllers/userController.js';
+import userAuth from '../middlewares/auth.js'; // Import the middleware
+
+const userRouter = express.Router();
+
+userRouter.get('/credits', userAuth, userCredits);
+userRouter.post('/pay-razor', userAuth, paymentRazorpay);
+userRouter.post('/verify-razor', userAuth, verifyRazorpay);
+userRouter.post('/pay-stripe', userAuth, paymentStripe);
+userRouter.post('/verify-stripe', userAuth, verifyStripe);
+
+export default userRouter;

@@ -8,7 +8,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import BuyCredit from './pages/BuyCredit';
 import Verify from './pages/Verify';
-
+import Login from './auth/login';
 const App = () => {
   return (
     <div className='min-h-screen bg-slate-50'>
@@ -19,6 +19,7 @@ const App = () => {
         <Route path='/result' element={<Result />} />
         <Route path='/buy' element={<BuyCredit />} />
         <Route path='/verify' element={<Verify />} />
+        <Route path='/login' element={<Login />} />
       </Routes>
       <Footer />
     </div>

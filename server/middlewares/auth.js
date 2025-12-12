@@ -1,31 +1,62 @@
-import jwt from 'jsonwebtoken'
+// import jwt from 'jsonwebtoken';
 
-// Middleware Function to decode jwt token to get clerkId
-// add customize session token in clerk dashboard // {"clerkId": "{{user.id}}"}
-const authUser = async (req, res, next) => {
+// const userAuth = async (req, res, next) => {
+//     try {
+//         console.log("Headers received:", req.headers);
+//         const { token } = req.headers;
+        
+//         if (!token) {
+//             return res.json({ success: false, message: "Not Authorized. Login Again" });
+//         }
+        
+//         const token_decode = jwt.verify(token, process.env.JWT_SECRET);
+        
+//         if (token_decode.id) {
+//             req.body.userId = token_decode.id; // Adds userId to the request body
+//         } else {
+//              // Fallback if your token payload uses 'sub' instead of 'id'
+//             req.body.userId = token_decode.sub;
+//         }
 
+//         next();
+        
+//     } catch (error) {
+//         console.log(error);
+//         res.json({ success: false, message: error.message });
+//     }
+// };
+
+// export default userAuth;
+
+import jwt from 'jsonwebtoken';
+
+const userAuth = async (req, res, next) => {
     try {
+        // 1. Get the authorization header instead of 'token'
+        const { authorization } = req.headers;
 
-        // getting token from headers
-        const { token } = req.headers;
-
-        // checking token availability
-        if (!token) {
-            return res.json({ success: false, message: 'Not Authorized Login Again' })
+        // 2. Check if the header exists and is formatted correctly
+        if (!authorization || !authorization.startsWith('Bearer ')) {
+            return res.json({ success: false, message: "Not Authorized. Login Again" });
         }
 
-        // decoding JWT token
-        const token_decode = jwt.decode(token)
+        // 3. Extract the token string (remove the "Bearer " prefix)
+        const token = authorization.split(' ')[1];
+        
+        const token_decode = jwt.verify(token, process.env.JWT_SECRET);
+        
+        if (token_decode.id) {
+            req.body.userId = token_decode.id; 
+        } else {
+            req.body.userId = token_decode.sub;
+        }
 
-        // getting clerkId from decoded token
-        req.body.clerkId = token_decode.clerkId
-        next()
-
+        next();
+        
     } catch (error) {
-        console.log(error.message)
-        res.json({ success: false, message: error.message })
+        console.log(error);
+        res.json({ success: false, message: error.message });
     }
+};
 
-}
-
-export default authUser
+export default userAuth;

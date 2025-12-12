@@ -1,10 +1,23 @@
-import express from 'express'
-import { removeBgImage } from '../controllers/imageController.js'
-import upload from '../middlewares/multer.js'
-import authUser from '../middlewares/auth.js'
+import express from 'express';
+import { removeBgImage } from '../controllers/imageController.js';
+import multer from 'multer';
 
-const imageRouter = express.Router()
+const router = express.Router();
 
-imageRouter.post('/remove-bg', upload.single('image'), authUser, removeBgImage)
+// --- 1. CONFIG FROM YOUR WORKING TEST FILE ---
+// We define this right here to be 100% sure it loads
+const storage = multer.diskStorage({
+  filename: (req, file, cb) => {
+    // This naming strategy worked in your test
+    cb(null, Date.now() + '-' + file.originalname);
+  }
+});
 
-export default imageRouter
+const upload = multer({ storage });
+// ---------------------------------------------
+
+// --- 2. THE ROUTE ---
+// Matches: POST /api/image/remove-bg
+router.post('/remove-bg', upload.single('image'), removeBgImage);
+
+export default router;
