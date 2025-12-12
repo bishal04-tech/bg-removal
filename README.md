@@ -1,15 +1,14 @@
 # 🖼️ BG-Removal – AI-Powered Background Remover
 
 A full-stack web app that lets users upload images, remove backgrounds using the **Clipdrop API**, and manage credits with **Razorpay payments**.  
-Built with **React**, **Node.js**, **Express**, **MongoDB**, **JWT Auth**, **Cloudinary**, and **Multer**.
+Built with **React**, **Node.js**, **Express**, **MongoDB**, **JWT Auth** and **Multer**.
 
 ---
 
 ## 🚀 Features
 - ✨ User register/login with JWT authentication  
 - 🖼️ Upload images and remove background via Clipdrop API  
-- 💰 Credit system with Razorpay integration (buy & track credits)  
-- ☁️ Cloud storage using Cloudinary  
+- 💰 Credit system with Razorpay integration (buy & track credits)   
 - 🔐 Secure password hashing with bcrypt  
 - 📜 View processed image history & download results  
 
@@ -19,7 +18,6 @@ Built with **React**, **Node.js**, **Express**, **MongoDB**, **JWT Auth**, **Clo
 **Frontend:** React, Tailwind CSS  
 **Backend:** Node.js, Express  
 **Database:** MongoDB (Mongoose)  
-**Storage:** Cloudinary  
 **Payments:** Razorpay (Test & Live keys)  
 **Auth:** JWT, bcrypt  
 
@@ -39,11 +37,6 @@ bg-removal/
 ├── src/
 └── package.json
 
-yaml
-Copy code
-
----
-
 ## ⚙️ Setup & Run Locally
 
 ### 1️⃣ Clone repo
@@ -62,9 +55,6 @@ Copy code
 PORT=4000
 MONGO_URI=<your_mongo_uri>
 JWT_SECRET=<your_secret>
-CLOUDINARY_CLOUD_NAME=<name>
-CLOUDINARY_API_KEY=<key>
-CLOUDINARY_API_SECRET=<secret>
 CLIPDROP_API_KEY=<api_key>
 RAZORPAY_KEY_ID=<key_id>
 RAZORPAY_KEY_SECRET=<key_secret>
