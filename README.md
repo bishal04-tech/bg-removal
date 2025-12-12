@@ -24,6 +24,8 @@ Built with **React**, **Node.js**, **Express**, **MongoDB**, **JWT Auth** and **
 ---
 
 ## 🏗️ Project Structure
+/
+```text
 bg-removal/
 │
 ├── backend/
@@ -36,6 +38,7 @@ bg-removal/
 └── frontend/
 ├── src/
 └── package.json
+```
 
 ## ⚙️ Setup & Run Locally
 
